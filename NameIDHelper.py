@@ -3,7 +3,7 @@ import pandas as pd
 
 # Creating df with json data instead of calling the API
 # this is to lower the amount of calls needed for this helper function!
-mapping_df = pd.read_json('NameIDMap.json')
+mapping_df = pd.read_json('Data/NameIDMap.json')
 # we are going to drop the useless cols that we wont be needing
 mapping_df = mapping_df.drop(
     columns=['examine', 'lowalch', 'limit', 'value', 'highalch', 'icon', 'members'])
@@ -31,6 +31,8 @@ def UpdateJson():
     }
 
     response_json = requests.get(url, headers=headers).text
-    f = open('data.json', 'w')
-    f.write(response_json)
+    f = open('Data/NameIDMap.json', 'w')
+    import json
+    mydata = json.loads(response_json)
+    f.write(json.dumps(mydata, indent=4))
     f.close()

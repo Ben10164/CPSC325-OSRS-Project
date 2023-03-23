@@ -17637,7 +17637,7 @@
     {
         "examine": "Very stylish!",
         "id": 2894,
-        "members": true,
+        "members": false,
         "lowalch": 200,
         "limit": 150,
         "value": 500,
@@ -28133,7 +28133,7 @@
     {
         "examine": "Very stylish!",
         "id": 2934,
-        "members": true,
+        "members": false,
         "lowalch": 200,
         "limit": 150,
         "value": 500,
@@ -29033,7 +29033,7 @@
     {
         "examine": "Very stylish!",
         "id": 2904,
-        "members": true,
+        "members": false,
         "lowalch": 200,
         "limit": 150,
         "value": 500,
@@ -37329,7 +37329,7 @@
     {
         "examine": "Very stylish!",
         "id": 2924,
-        "members": true,
+        "members": false,
         "lowalch": 200,
         "limit": 150,
         "value": 500,
@@ -42212,7 +42212,7 @@
     {
         "examine": "Very stylish!",
         "id": 2914,
-        "members": true,
+        "members": false,
         "lowalch": 200,
         "limit": 150,
         "value": 500,
