@@ -1,7 +1,8 @@
 import requests
 import pandas as pd
 
-# Creating df with json data
+# Creating df with json data instead of calling the API
+# this is to lower the amount of calls needed for this helper function!
 mapping_df = pd.read_json('NameIDMap.json')
 # we are going to drop the useless cols that we wont be needing
 mapping_df = mapping_df.drop(
@@ -18,6 +19,7 @@ def IdToName(id):
     return id_dict[id]
 
 
+# This function will update the locally stored JSON
 def UpdateJson():
     url = 'https://prices.runescape.wiki/api/v1/osrs/mapping'
     # we want the latest data, so lets add that to the url
@@ -28,7 +30,6 @@ def UpdateJson():
         'User-Agent': 'Item_ID_Helper_Functions - @Be#9998',
     }
 
-    #
     response_json = requests.get(url, headers=headers).text
     f = open('data.json', 'w')
     f.write(response_json)
