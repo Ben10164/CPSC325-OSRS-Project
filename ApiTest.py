@@ -1,10 +1,12 @@
 import requests
+import NameIDHelper
+
 
 url = 'https://prices.runescape.wiki/api/v1/osrs'
 # we want the latest data, so lets add that to the url
-url += "/latest?"
+url += "/timeseries?timestep=5m&id="
 # lets add the abyssal whip to the url:
-url += "id=4151"
+url += str(NameIDHelper.NameToID("Abyssal whip"))
 
 headers = {
     # the wiki blocks all common user-agents in order to prevent spam
@@ -12,9 +14,12 @@ headers = {
     'User-Agent': 'volume_tracker - @Be#9998',
 }
 
-# response = requests.get(url, headers=headers)
-# print(response.text)
+response = requests.get(url, headers=headers)
+print(response.text)
 
-import NameIDHelper
+import pandas
+import io
 
-print(NameIDHelper.IdToName(100000))
+test = pandas.read_csv(io.StringIO(response.text))
+
+print(test)
