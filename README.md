@@ -1,4 +1,4 @@
-# Project Proposal
+# Project Proposal /  README.md
 
 Hey Gina, I decided to do a complete 180 on my Project as a way to make it more tangible. After doing research into unsupervised categorizing for audio files I came to the realization that I mainly wanted to work with MIDI and audio generation, and therefore decided to change my overall topic to be predicting and visualizing market trends in player-player trading in the game Old School RuneScape.  
 It might be weird to change after so long, but I feel i'll be able to utilize a lot of the tutorials given by other students rather and familiarize myself with data scrapping and server hosting better with this project while still being related to something I am actively participating and interested in. Anyway, I hope this is okay!
