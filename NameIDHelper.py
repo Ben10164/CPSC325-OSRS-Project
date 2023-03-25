@@ -11,16 +11,34 @@ name_dict = mapping_df.set_index('name')['id'].to_dict()
 id_dict = mapping_df.set_index('id')['name'].to_dict()
 
 
-def NameToID(name):
+def NameToID(name:str)->int:
+    """Returns the ID the Name represents
+
+    Args:
+        name (str): The name
+
+    Returns:
+        int: The id
+    """
     return name_dict[name]
 
 
-def IdToName(id):
+def IdToName(id:int)->str:
+    """Returns the Name the ID represents
+
+    Args:
+        id (int): The id
+
+    Returns:
+        str : The name 
+    """
     return id_dict[id]
 
 
 # This function will update the locally stored JSON
 def UpdateJson():
+    """Updates the locally stored JSON
+    """
     url = 'https://prices.runescape.wiki/api/v1/osrs/mapping'
     # we want the latest data, so lets add that to the url
 

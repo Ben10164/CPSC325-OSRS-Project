@@ -6,7 +6,15 @@ from datetime import datetime
 import pandas as pd
 
 
-def addAverage(dt):
+def addAverage(dt: pd.DataFrame) -> pd.DataFrame:
+    """Adds a col "average" to the Pandas Dataframe passed in
+
+    Args:
+        dt (Dataframe): The Dataframe to be modified
+
+    Returns:
+        Dataframe: The modified Dataframe
+    """
     # the volumes will still be there to calculate an average
     average = []
     for time in dt.values:
@@ -25,7 +33,16 @@ def addAverage(dt):
     return dt
 
 
-def getDT(name,timestep):
+def getDT(name: str, timestep: str) -> pd.DataFrame:
+    """Returns a Datetime formated Pandas Dataframe of an item
+
+    Args:
+        name (str): The name of the item
+        timestep (str): The timestep (e.g. "5m", "1h", "6h")
+
+    Returns:
+        pd.DataFrame: A Datetime formated Pandas Dataframe of an item
+    """
     url = 'https://prices.runescape.wiki/api/v1/osrs'
     # we want the latest data, so lets add that to the url
     url += "/timeseries?timestep="
@@ -41,16 +58,17 @@ def getDT(name,timestep):
     }
     req = Request(url, headers=headers)
     with urlopen(req) as response:
-                latestData = response.read()
+        latestData = response.read()
     data = json.loads(latestData)
 
     for date in data['data']:
-        date['timestamp'] = datetime.utcfromtimestamp(date['timestamp']).strftime('%Y-%m-%d %H:%M:%S')
+        date['timestamp'] = datetime.utcfromtimestamp(
+            date['timestamp']).strftime('%Y-%m-%d %H:%M:%S')
     data = data['data']
-    
+
     dt_pandas = pd.DataFrame(data)
     dt_pandas = dt_pandas.set_index('timestamp')
-    #dt_pandas.dropna(inplace=True)
+    # dt_pandas.dropna(inplace=True)
     dt_pandas = addAverage(dt_pandas)
     dt_pandas.drop(columns=['lowPriceVolume', 'highPriceVolume'], inplace=True)
     return dt_pandas
