@@ -1,9 +1,11 @@
-import numpy as np
-import NameIDHelper
-from urllib.request import urlopen, Request
 import json
 from datetime import datetime
+from urllib.request import Request, urlopen
+
+import numpy as np
 import pandas as pd
+
+import NameIDHelper
 
 
 def addAverage(dt: pd.DataFrame) -> pd.DataFrame:
