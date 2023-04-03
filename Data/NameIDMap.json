@@ -11000,14 +11000,15 @@
         "name": "Crushed superior dragon bones"
     },
     {
-        "highalch": 300000,
-        "members": true,
-        "name": "Crystal armour seed",
         "examine": "A seed to be sung into the finest crystal armour.",
         "id": 23956,
+        "members": true,
+        "lowalch": 200000,
+        "limit": 100,
         "value": 500000,
+        "highalch": 300000,
         "icon": "Crystal armour seed.png",
-        "lowalch": 200000
+        "name": "Crystal armour seed"
     },
     {
         "examine": "How does it all fit in there?",
@@ -29750,7 +29751,7 @@
         "id": 2552,
         "members": true,
         "lowalch": 510,
-        "limit": 10000,
+        "limit": 15000,
         "value": 1275,
         "highalch": 765,
         "icon": "Ring of dueling(8).png",

@@ -35,6 +35,23 @@ def addAverage(dt: pd.DataFrame) -> pd.DataFrame:
     return dt
 
 
+def getTimeSeries(name: str, timestep: str) -> pd.Series:
+    """Returns a Datetime formated Pandas Series of an item
+
+    Args:
+        name (str): The name of the item
+        timestep (str): The timestep (e.g. "5m", "1h", "6h")
+
+    Returns:
+        pd.Series: A Datetime formated Pandas Series of an item
+    """
+    data = getDT(name, timestep)
+    data.drop(columns=["avgHighPrice", "avgLowPrice"], inplace=True)
+    data = data.reset_index()
+    ser = pd.Series(data['average'].array, pd.to_datetime(data['timestamp']))
+    return ser
+
+
 def getDT(name: str, timestep: str) -> pd.DataFrame:
     """Returns a Datetime formated Pandas Dataframe of an item
 
