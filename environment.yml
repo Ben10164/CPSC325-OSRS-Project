@@ -1,21 +1,21 @@
 name: tf-metal
 channels:
-  - apple
   - conda-forge
+  - apple
 dependencies:
+  - python=3.9 ## specify desired version
+  - pip
+  - tensorflow-deps
+  - pandas
+  - matplotlib
+  - scikit-learn
+  - ipykernel
   - altair
   - finta
-  - ipykernel
-  - matplotlib
-  - pandas
-  - pip
-  - python=3.9 ## specify desired version
-  - scikit-learn
-  - streamlit
-  - tensorflow-deps
 
   ## PyPI packages
   - pip:
-      - skforecast
       - tensorflow-macos
       - tensorflow-metal ## optional, but recommended
+      - skforecast
+      - streamlit
