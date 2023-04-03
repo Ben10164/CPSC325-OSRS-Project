@@ -3,17 +3,19 @@ channels:
   - apple
   - conda-forge
 dependencies:
-  - python=3.9 ## specify desired version
-  - pip
-  - tensorflow-deps
+  - altair
+  - finta
   - ipykernel
   - matplotlib
   - pandas
+  - pip
+  - python=3.9 ## specify desired version
   - scikit-learn
-  - finta
+  - streamlit
+  - tensorflow-deps
 
   ## PyPI packages
   - pip:
+      - skforecast
       - tensorflow-macos
       - tensorflow-metal ## optional, but recommended
-      - skforecast
