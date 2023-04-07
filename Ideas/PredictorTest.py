@@ -84,9 +84,11 @@ def cross_Validation(data):
     # Models which will be used
     rf = RandomForestClassifier()
     knn = KNeighborsClassifier()
+    ada = AdaBoostClassifier()
+    gb = GradientBoostingClassifier()
     
     # Create a tuple list of our models
-    estimators=[('knn', knn), ('rf', rf)]
+    estimators=[('knn', knn), ('rf', rf),('ada', ada), ('gb', gb)]
     ensemble = VotingClassifier(estimators, voting='soft')
     
     while True:
@@ -98,7 +100,17 @@ def cross_Validation(data):
         if len(df) < 40:
             break
         
+        df['nextDeltaInc'] = df['nextDeltaInc'].shift(periods=1)
+        df = df.reset_index()
+        df = df.drop(['timestamp'], axis=1)
+        first_row = df.iloc[0]
+        first_row = first_row.drop(['nextDeltaInc'])
+        df = df.tail(-1)
+        #df = df.drop(data.index[0])
+        # df['nextDeltaInc'][0] = 0
+        print(df)
         y = df['nextDeltaInc']
+        # print(y)
         features = [x for x in df.columns if x not in ['nextDeltaInc']]
         X = df[features]
 
@@ -144,5 +156,18 @@ def getNeatGraph(name, time):
     data = _get_indicator_data(data)
     data = _produce_prediction(data, window=15)
     data = data.dropna() # Some indicators produce NaN values for the first few rows, we just remove them here
+    print(data)
+    cross_Validation(data)
+    return data
+
+def getNeatGraphFolder(name, time):
+
+    import Functions
+    df = Functions.getDT(name, time)
+    data = _exponential_smooth(df, 0.65)
+    data = _get_indicator_data(data)
+    data = _produce_prediction(data, window=15)
+    data = data.dropna() # Some indicators produce NaN values for the first few rows, we just remove them here
+    print(data)
     cross_Validation(data)
     return data

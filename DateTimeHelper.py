@@ -17,20 +17,27 @@ def addAverage(dt: pd.DataFrame) -> pd.DataFrame:
     Returns:
         Dataframe: The modified Dataframe
     """
+    # dt = dt1.copy()
     # the volumes will still be there to calculate an average
     average = []
+    index = 0
     for time in dt.values:
         # averageVal = (time['lowPriceVolume']*time['avgLowPrice'] + time['highPriceVolume']*time['avgHighPrice']) / (time['lowPriceVolume'] + time['highPriceVolume'])
         averageVal = (time[3]*time[1] + time[2]*time[0]) / (time[3] + time[2])
+        # averageVal = (time[3]*time[1] + time[2]*time[0]) / (time[3] + time[2])
         if (np.isnan(averageVal)):
             if time[0] == time[1]:
                 # uh oh
                 continue
             elif np.isnan(time[0]):
                 averageVal = time[1]
+                time[0] = dt['avgLowPrice'][index]
             elif np.isnan(time[1]):
                 averageVal = time[0]
+                time[1] = dt['avgHighPrice'][index]
         average.append(averageVal)
+        dt.iloc[index] = time
+        index = index + 1
     dt['average'] = average
     return dt
 
@@ -89,5 +96,5 @@ def getDT(name: str, timestep: str) -> pd.DataFrame:
     dt_pandas = dt_pandas.set_index('timestamp')
     # dt_pandas.dropna(inplace=True)
     dt_pandas = addAverage(dt_pandas)
-    dt_pandas.drop(columns=['lowPriceVolume', 'highPriceVolume'], inplace=True)
+    # dt_pandas.drop(columns=['lowPriceVolume', 'highPriceVolume'], inplace=True)
     return dt_pandas
