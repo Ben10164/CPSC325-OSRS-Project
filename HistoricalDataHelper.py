@@ -16,10 +16,8 @@ import NameIDHelper
 
 def get_prices_at_time(delta, curr_time: float):
     url = 'https://prices.runescape.wiki/api/v1/osrs/'
-    # we want the latest data, so lets add that to the url
     url += str(delta)
     url += "?timestamp="
-    # url += today.strftime("%f")
     if (delta == '5m'):
         url += str(int(curr_time - (curr_time % 300)))
     elif (delta == '1h'):
@@ -29,59 +27,20 @@ def get_prices_at_time(delta, curr_time: float):
     else:
         ValueError()
 
-    print(url)
     headers = {
         # the wiki blocks all common user-agents in order to prevent spam
         # after talking with some of the API maintainers over discord they asked me to include my discord in the user-agent
-        'User-Agent': 'Storing Past Data- @Be#9998',
+        'User-Agent': 'Storing Past Data - @Be#9998',
     }
     req = Request(url, headers=headers)
 
     with urlopen(req) as response:
         latestData = response.read()
     data = json.loads(latestData)
-
-    data['data']
     return data['data']
 
 
-def test(delta, start_time=None):
-    times = {}
-    if (start_time is None):
-        t = time.time()
-    else:
-        t = start_time
-
-    two_yrs_ago = datetime.now() - relativedelta(years=1)
-    # two_yrs_ago = datetime.now() - relativedelta(years=1)
-    while (t > two_yrs_ago.timestamp()):
-        time_df = get_prices_at_time(delta, t)
-        # df = pd.DataFrame.from_dict(time_df)
-        # df = df.transpose()
-        # df_json = df.to_json()
-        # print(df_json)
-        label = 0
-        if (delta == '5m'):
-            label = str(int(t - (t % 300)))
-        elif (delta == '1h'):
-            label = str(int(t - (t % 3600)))
-        elif (delta == '6h'):
-            label = str(int(t - (t % 21600)*4))  # once a day
-        # times[label] = df_json
-        times[label] = time_df
-        if (delta == '6h'):
-            t = t-21600
-        elif (delta == '1h'):
-            t = t-3600
-        elif (delta == '5m'):
-            t = t-300
-        else:
-            ValueError()
-        time.sleep(0.1)
-    return times
-
-
-def test2(delta, id, start_time=None):
+def get_historical_API(delta, id, start_time=None):
     times = {}
     if (start_time is None):
         temp = datetime.now() - relativedelta(month=6)
@@ -89,16 +48,10 @@ def test2(delta, id, start_time=None):
     else:
         t = start_time
 
-    print(t)
-
     two_yrs_ago = datetime.now() - relativedelta(years=2)
-    # two_yrs_ago = datetime.now() - relativedelta(years=1)
+    counter = 0
     while (t > two_yrs_ago.timestamp()):
         time_df = get_prices_at_time(delta, t)
-        # df = pd.DataFrame.from_dict(time_df)
-        # df = df.transpose()
-        # df_json = df.to_json()
-        # print(df_json)
         label = 0
         if (delta == '5m'):
             label = str(int(t - (t % 300)))
@@ -118,21 +71,22 @@ def test2(delta, id, start_time=None):
         try:
             times[label] = time_df[str(id)]
         except:
-            print("To soon to current date to retrieve historical data (probably)")
-
-            continue
+            counter += 1
+            print("No info for timestamp",t, " continuing until 10 in a row with no info:",counter,"/10")
+            if(counter >= 10): # if there are 10 instances in a row with no item 
+                break
         time.sleep(0.1)
-    return times
+    if time == {}:
+        return None
+    else:
+        return times
 
 
 def create_historical(name):
     id = NameIDHelper.NameToID(name)
-    print(id)
+    print("id is ", id)
     try:
-        # historical_time = test('6h', 1652175674)
-        # historical_time = test2('6h', id)
-        historical_time = test2(
-            '6h', id, datetime.now().timestamp() - (21600*365))
+        historical_time = get_historical_API('6h', id, datetime.now().timestamp() - (21600*365))
 
         try:
             f = open('Data/Historical/' + str(id) + '.json', 'w')
@@ -146,3 +100,14 @@ def create_historical(name):
         f.close()
     except:
         return IndexError()
+
+
+def get_historical(name):
+    id = NameIDHelper.NameToID(name)
+    fpath = "Data/Historical/" + str(id) + ".json"
+    try:
+        df = pd.read_json(fpath)
+    except:
+        create_historical(name)
+        df = pd.read_json(fpath)
+    return df
