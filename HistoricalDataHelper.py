@@ -70,6 +70,7 @@ def get_historical_API(delta, id, start_time=None):
             ValueError()
         try:
             times[label] = time_df[str(id)]
+            counter = 0
         except:
             counter += 1
             print("No info for timestamp",t, " continuing until 10 in a row with no info:",counter,"/10")
