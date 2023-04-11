@@ -1,6 +1,7 @@
 ## Ben Added
 .DS_Store
 Graphs/
+Data/Historical/Complete*.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

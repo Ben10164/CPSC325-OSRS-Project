@@ -1,11 +1,13 @@
-import HistoricalDataHelper
-import DateTimeHelper
-import tensorflow as tf
 import os
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+
 import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+
+import DateTimeHelper
+import HistoricalDataHelper
 
 
 def get_model(MAX_EPOCHS=20000, 
@@ -16,7 +18,8 @@ def get_model(MAX_EPOCHS=20000,
          LABEL_WIDTH=30, 
          CONV_WIDTH=30, 
          LABEL_COLUMNS=['average', 'avgHighPrice', 'avgLowPrice'],
-         MODEL="Conv1D"):    
+         MODEL="Conv1D",
+         DELTA='6h'):    
     """Returns a tensorflow model.
 
     Args:
@@ -29,6 +32,7 @@ def get_model(MAX_EPOCHS=20000,
         CONV_WIDTH (int, optional): The width of the Conv window. Defaults to 30.
         LABEL_COLUMNS (list, optional): The labels of the columns used for training. Defaults to ['average', 'avgHighPrice', 'avgLowPrice'].
         MODEL (str, optional): The wanted model ("Linear", "Multi_Step_Dense", "Conv1D). Defaults to "Conv1D".
+        DELTA (str, optional): The time delta
 
     Returns:
         Tensorflow Model: The model
@@ -46,7 +50,7 @@ def get_model(MAX_EPOCHS=20000,
     df = DateTimeHelper.getDT(ITEM, "6h")
 
     # import the Historical data
-    test = HistoricalDataHelper.get_historical(ITEM)
+    test = HistoricalDataHelper.create_complete_historical(ITEM, DELTA)
 
     if not test.empty:
         test = test.transpose()
@@ -222,6 +226,13 @@ def get_model(MAX_EPOCHS=20000,
     WindowGenerator.example = example
 
     def compile_and_fit(model: tf.keras.models.Sequential, window, patience=PATIENCE):
+        """_summary_
+
+        Args:
+            model (tf.keras.models.Sequential): _description_
+            window (_type_): _description_
+            patience (_type_, optional): _description_. Defaults to PATIENCE.
+        """
         # Include the epoch in the file name (uses `str.format`)
         #   checkpoint_path = "Models/cp.ckpt"
         checkpoint_path = model_location + "/cp.ckpt"
@@ -272,6 +283,11 @@ def get_model(MAX_EPOCHS=20000,
         label_columns=['average'])
 
     def linear() -> tf.keras.Sequential:
+        """Trains a Linear model and returns it. 
+
+        Returns:
+            tf.keras.Sequential: Linear
+        """
         # linear
         linear = tf.keras.Sequential([
             tf.keras.layers.Dense(units=1)
@@ -285,6 +301,11 @@ def get_model(MAX_EPOCHS=20000,
         return linear
 
     def msd() -> tf.keras.Sequential:
+        """Trains a Multi_Step_Dense model and returns it. 
+
+        Returns:
+            tf.keras.Sequential: Multi_Step_Dense
+        """
         multi_step_dense = tf.keras.Sequential([
             # Shape: (time, features) => (time*features)
             tf.keras.layers.Flatten(),
@@ -304,6 +325,11 @@ def get_model(MAX_EPOCHS=20000,
         return multi_step_dense
 
     def conv1d() -> tf.keras.Sequential:
+        """Trains a 1-dimensional Convolution model and returns it. 
+
+        Returns:
+            tf.keras.Sequential: Conv1D
+        """
         conv_model = tf.keras.Sequential([
             tf.keras.layers.Conv1D(filters=32,
                                    kernel_size=(CONV_WIDTH,),

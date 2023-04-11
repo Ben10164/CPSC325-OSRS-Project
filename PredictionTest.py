@@ -3,13 +3,15 @@ import Predictor
 model, train_df, val_df, test_df, CONV_WIDTH = Predictor.get_model(MAX_EPOCHS=20000,
                                                                    PATIENCE=400,
                                                                    normalize=False,
-                                                                   ITEM="Scythe of vitur (uncharged)",
+                                                                   ITEM="Twisted bow",
+                                                                #    ITEM="Osmumten's fang",
                                                                    INPUT_WIDTH=30,
                                                                    LABEL_WIDTH=30,
                                                                    CONV_WIDTH=30,
                                                                    LABEL_COLUMNS=[
                                                                        'average', 'avgHighPrice', 'avgLowPrice'],
-                                                                   MODEL="Conv1D")
+                                                                   MODEL="Conv1D",
+                                                                   DELTA='6h')
 
 test_df.drop(test_df.head(abs(30-len(test_df))).index,
              inplace=True)

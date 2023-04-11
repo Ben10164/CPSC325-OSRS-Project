@@ -1,0 +1,4 @@
+import HistoricalDataHelper
+
+# HistoricalDataHelper.create_complete_historical('6h')
+HistoricalDataHelper.get_historical_local('Twisted bow', '1h')
