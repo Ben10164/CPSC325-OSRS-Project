@@ -11,12 +11,33 @@ import matplotlib as mpl
 def get_model(MAX_EPOCHS=20000, 
          PATIENCE=400, 
          normalize=False, 
-         ITEM="Scythe of vitur (uncharged)", 
+         ITEM="Twised bow", 
          INPUT_WIDTH=30, 
          LABEL_WIDTH=30, 
          CONV_WIDTH=30, 
          LABEL_COLUMNS=['average', 'avgHighPrice', 'avgLowPrice'],
-         MODEL="Conv1D"):
+         MODEL="Conv1D"):    
+    """Returns a tensorflow model.
+
+    Args:
+        MAX_EPOCHS (int, optional): The maximum amount of Epochs used while training. Defaults to 20000.
+        PATIENCE (int, optional): The patience value used while training the model. Defaults to 400.
+        normalize (bool, optional): Normalize the values (False recommended). Defaults to False.
+        ITEM (str, optional): The Item. Defaults to "Twisted bow".
+        INPUT_WIDTH (int, optional): The input width for the window. Defaults to 30.
+        LABEL_WIDTH (int, optional): The label width for the window. Defaults to 30.
+        CONV_WIDTH (int, optional): The width of the Conv window. Defaults to 30.
+        LABEL_COLUMNS (list, optional): The labels of the columns used for training. Defaults to ['average', 'avgHighPrice', 'avgLowPrice'].
+        MODEL (str, optional): The wanted model ("Linear", "Multi_Step_Dense", "Conv1D). Defaults to "Conv1D".
+
+    Returns:
+        Tensorflow Model: The model
+        pd.Dataframe: train_df
+        pd.Dataframe: val_df
+        pd.Dataframe: test_df
+        int, CONV_WIDTH
+
+    """
     model_location = 'Models/'+str(ITEM)
     model_location = model_location.replace(" ", "_")
 
@@ -250,7 +271,7 @@ def get_model(MAX_EPOCHS=20000,
         shift=1,
         label_columns=['average'])
 
-    def linear():
+    def linear() -> tf.keras.Sequential:
         # linear
         linear = tf.keras.Sequential([
             tf.keras.layers.Dense(units=1)
@@ -263,7 +284,7 @@ def get_model(MAX_EPOCHS=20000,
         linear.save(model_location + "/Linear")
         return linear
 
-    def msd():
+    def msd() -> tf.keras.Sequential:
         multi_step_dense = tf.keras.Sequential([
             # Shape: (time, features) => (time*features)
             tf.keras.layers.Flatten(),
@@ -282,7 +303,7 @@ def get_model(MAX_EPOCHS=20000,
         multi_step_dense.save(model_location + "/Multi_Step_Dense")
         return multi_step_dense
 
-    def conv1d():
+    def conv1d() -> tf.keras.Sequential:
         conv_model = tf.keras.Sequential([
             tf.keras.layers.Conv1D(filters=32,
                                    kernel_size=(CONV_WIDTH,),
@@ -301,9 +322,17 @@ def get_model(MAX_EPOCHS=20000,
     
     if MODEL == 'Conv1D':
         return conv1d(), train_df, val_df, test_df, CONV_WIDTH
+    elif MODEL == 'Multi_Step_Dense':
+        return msd(), train_df, val_df, test_df, CONV_WIDTH
+    else:
+        return linear(), train_df, val_df, test_df, CONV_WIDTH
 
 
-def predict(model, test_df, CONV_WIDTH):
+def predict(model, test_df):
+    """Returns a prediction
+
+    model (Conv1D Model): Must be a Conv1D model (for now)
+    """
     # now we are going to create the test data:
 
     t = test_df.to_numpy()

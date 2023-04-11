@@ -15,7 +15,7 @@ test_df.drop(test_df.head(abs(30-len(test_df))).index,
              inplace=True)
 print(test_df)
 
-print(Predictor.predict(model, test_df, CONV_WIDTH))
+print(Predictor.predict(model, test_df))
 
 """
 OUTPUT:
