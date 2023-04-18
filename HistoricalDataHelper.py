@@ -41,7 +41,7 @@ def get_prices_at_time(delta, curr_time: float):
 
 
 def get_all_historical_API(delta):
-    times = {}
+    times = [{},{},{},{},{},{},{},{},{},{}]
     if (delta == '5m'):
         t = datetime.now().timestamp() - 325 * 300
     elif (delta == '1h'):
@@ -49,7 +49,7 @@ def get_all_historical_API(delta):
     elif (delta == '6h'):
         t = datetime.now().timestamp() - 325 * 21600
     # t = (datetime.now()- relativedelta(years=0, months=6)).timestamp()
-
+    idxs = 0
     two_yrs_ago = datetime.now() - relativedelta(years=2)
     while (t > two_yrs_ago.timestamp()):
         time_df = get_prices_at_time(delta, t)
@@ -70,8 +70,31 @@ def get_all_historical_API(delta):
             t = t-300
         else:
             ValueError()
-        times[label] = time_df
-        time.sleep(0.1)
+
+        if idxs %10 == 0:
+            times[0][label] = time_df
+        # elif idxs < 1000000:
+        elif idxs %10 == 1:
+            times[1][label] = time_df
+        elif idxs %10== 2:
+            times[2][label] = time_df
+        elif idxs %10 == 3:
+            times[3][label] = time_df
+        elif idxs %10 == 4:
+            times[4][label] = time_df
+        elif idxs %10 == 5:
+            times[5][label] = time_df
+        elif idxs %10 == 6:
+            times[6][label] = time_df
+        elif idxs %10 == 7:
+            times[7][label] = time_df
+        elif idxs %10 == 8:
+            times[8][label] = time_df
+        else:
+            times[9][label] = time_df
+        idxs += 1
+
+        # time.sleep(0.1)
     if time == {}:
         return None
     else:
@@ -86,30 +109,44 @@ def create_complete_historical(delta):
             historical_time = get_all_historical_API(delta)
         else:
             historical_time = get_all_historical_API(delta)
-
-        try:
-            f = open('Data/Historical/Complete-' + str(delta) + '.json', 'w')
-        except:
+        for idx in range(len(historical_time)):
             try:
-                os.mkdir('Data')
+                f = open('Data/Historical/Complete-' + str(delta) + '-' + str(idx) + '.json', 'w')
             except:
-                os.mkdir('Data/Historical')
-            f = open('Data/Historical/Complete-' + str(delta) + '.json', 'w')
-        f.write(json.dumps(historical_time, indent=4))
-        f.close()
+                try:
+                    os.mkdir('Data')
+                except:
+                    os.mkdir('Data/Historical')
+                f = open('Data/Historical/Complete-' + str(delta) + '-' + str(idx) +'-' + '.json', 'w')
+            f.write(json.dumps(historical_time[idx], indent=4))
+            f.close()
     except:
         return IndexError()
 
-def get_historical_local(name, delta):
+def get_historical_local(name, delta) -> pd.DataFrame:
     id = NameIDHelper.NameToID(name)
     times = {}
-    fpath = 'Data/Historical/Complete-' + str(delta) + '.json'
+    fpath = 'Data/Historical/Complete-' + str(delta) + '-0.json'
     try:
         df = pd.read_json(fpath)
     except:
         create_complete_historical(delta)
         df = pd.read_json(fpath)
-    print(df.loc[id])
+
+    item = df.loc[int(id)]
+    for i in range(1, 10):
+        # try looking for the others as well
+        fpath = 'Data/Historical/Complete-' + str(delta) + '-' + str(i) + '.json'
+        try:
+            df = pd.read_json(fpath)
+            item = item.concat(df.loc[id])
+        except:
+            pass
+    # save the indexes
+    item = item.dropna()
+    temp = item.index
+    df = pd.DataFrame(item.to_list())
+    df = df.set_index(temp)
     return df
     
 
@@ -134,7 +171,7 @@ def get_historical_API(delta, id, start_time=None):
             label = str(int(t - (t % 21600)))
         # times[label] = df_json
         if (delta == '6h'):
-            t = t-(21600*4)
+            t = t-(21600)
         elif (delta == '1h'):
             t = t-3600
         elif (delta == '5m'):
@@ -170,7 +207,7 @@ def create_historical(name, delta):
             historical_time = get_historical_API(delta, id, datetime.now().timestamp() - (21600*365))
 
         try:
-            f = open('Data/Historical/' + str(id) + '.json', 'w')
+            f = open('Data/Historical/' + str(id) + '-' + str(delta) + '.json', 'w')
         except:
             try:
                 os.mkdir('Data')

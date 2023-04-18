@@ -1,23 +1,31 @@
 import Predictor
+import pandas as pd
 
-model, train_df, val_df, test_df, CONV_WIDTH = Predictor.get_model(MAX_EPOCHS=20000,
-                                                                   PATIENCE=400,
-                                                                   normalize=False,
-                                                                   ITEM="Twisted bow",
-                                                                #    ITEM="Osmumten's fang",
-                                                                   INPUT_WIDTH=30,
-                                                                   LABEL_WIDTH=30,
-                                                                   CONV_WIDTH=30,
-                                                                   LABEL_COLUMNS=[
-                                                                       'average', 'avgHighPrice', 'avgLowPrice'],
-                                                                   MODEL="Conv1D",
-                                                                   DELTA='6h')
+import DateTimeHelper
 
-test_df.drop(test_df.head(abs(30-len(test_df))).index,
-             inplace=True)
-print(test_df)
+ITEM="Scythe of vitur (uncharged)"
 
-print(Predictor.predict(model, test_df))
+test_df = DateTimeHelper.getDT(ITEM, '1h')[-30:]
+
+# test_df = pd.read_json('temp.json')
+
+model = Predictor.get_model(MAX_EPOCHS=200,
+                            PATIENCE=400,
+                            normalize=False,
+                            ITEM=ITEM,
+                            # ITEM="Twisted bow",
+                            # ITEM="Osmumten's fang",
+                            INPUT_WIDTH=30,
+                            LABEL_WIDTH=30,
+                            CONV_WIDTH=30,
+                            LABEL_COLUMNS=['average',
+                                           'avgHighPrice', 'avgLowPrice'],
+                            #    MODEL="Linear",
+                            MODEL="Conv1D",
+                            DELTA='6h')
+
+te = Predictor.predict(model, test_df)
+print(te)
 
 """
 OUTPUT:
