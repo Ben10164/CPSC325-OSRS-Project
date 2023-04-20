@@ -3,31 +3,49 @@ import pandas as pd
 
 import DateTimeHelper
 
-ITEM="Twisted bow"
+# ITEM="Tumeken's shadow (uncharged)"
 # ITEM="Scythe of vitur (uncharged)"
+ITEM="Twisted bow"
+
+DELTA = '6h'
+# DELTA = '1h'
 
 test_df = DateTimeHelper.getDT(ITEM, '1h')[-30:]
 
 # test_df = pd.read_json('temp.json')
 
-model = Predictor.get_model(MAX_EPOCHS=2000,
-                            PATIENCE=50,
-                            normalize=False,
+
+model = Predictor.get_model(MAX_EPOCHS=100,
+                            PATIENCE=10,
                             ITEM=ITEM,
-                            # ITEM="Twisted bow",
-                            # ITEM="Osmumten's fang",
-                            INPUT_WIDTH=30,
-                            LABEL_WIDTH=30,
-                            CONV_WIDTH=30,
-                            LABEL_COLUMNS=['average',
-                                           'avgHighPrice', 'avgLowPrice'],
-                            # MODEL="Linear",
-                            # MODEL="Conv1D",
-                            MODEL="Multi_Step_Dense",
-                            DELTA='1h')
+                            MODEL="Conv1D",
+                            DELTA=DELTA)
 
 te = Predictor.predict(model, test_df)
 print(te)
+
+
+
+
+
+
+# model = Predictor.get_model(MAX_EPOCHS=100,
+#                             PATIENCE=10,
+#                             normalize=False,
+#                             # normalize=True,
+#                             ITEM=ITEM,
+#                             # ITEM="Twisted bow",
+#                             # ITEM="Osmumten's fang",
+#                             INPUT_WIDTH=30,
+#                             LABEL_WIDTH=30,
+#                             CONV_WIDTH=30,
+#                             LABEL_COLUMNS=['average',
+#                                            'avgHighPrice', 'avgLowPrice'],
+#                             # MODEL="Linear",
+#                             MODEL="Conv1D",
+#                             # MODEL="Multi_Step_Dense",
+#                             DELTA='6h')
+
 
 """
 OUTPUT:

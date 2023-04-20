@@ -399,12 +399,12 @@ def get_model(MAX_EPOCHS=20000,
         print(df)
 
         # import the Historical data
-        test = HistoricalDataHelper.get_historical_local('Twisted bow', DELTA)
+        test = HistoricalDataHelper.get_item_historical_local('Twisted bow', DELTA)
         print(test)
         # test = HistoricalDataHelper.get_historical(ITEM, DELTA)
 
         if not test.empty:
-            # test = test.transpose()
+            test = test.transpose()
             test = test[['avgHighPrice', 'avgLowPrice',
                         'highPriceVolume', 'lowPriceVolume']]
             test = DateTimeHelper.addAverage(test)
@@ -438,6 +438,7 @@ def get_model(MAX_EPOCHS=20000,
         og_test_df = df2[int(n*0.9):]
 
         num_features = df.shape[1]
+
 
         class WindowGenerator():
             def __init__(self, input_width, label_width, shift,
@@ -594,9 +595,9 @@ def get_model(MAX_EPOCHS=20000,
             # Create a callback that saves the model's weights every  MAX_EPOCHS/10 epochs
             cp_callback = tf.keras.callbacks.ModelCheckpoint(
                 filepath=checkpoint_path,
+                save_best_only=True,
                 verbose=1,
-                save_weights_only=True,
-                save_freq=int(MAX_EPOCHS/10))
+                save_weights_only=True)
 
             early_stopping1 = tf.keras.callbacks.EarlyStopping(monitor='loss',
                                                             patience=patience,
@@ -621,7 +622,7 @@ def get_model(MAX_EPOCHS=20000,
 
         conv_window = WindowGenerator(
             input_width=CONV_WIDTH,
-            label_width=1,
+            label_width=30,
             shift=1,
             label_columns=['average'])
 
@@ -763,7 +764,7 @@ def predict(model : tf.keras.Sequential, test_df):
     t = test_df.to_numpy()
     t_reshaped = t.reshape((1,-1,5)) 
 
-    y_pred = model(t_reshaped )
+    y_pred = model(t_reshaped)
     # y_pred = model.predict(t_reshaped )
 
-    return y_pred[0]
+    return y_pred

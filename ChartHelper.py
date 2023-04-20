@@ -16,7 +16,9 @@ def get_chart(data, title):
         alt.Chart(data, title=title)
         .mark_line()
         .encode(
-            x="timestamp:T",
+            x=alt.X("timestamp:T"),
+            # x=alt.X("timestamp:T", scale=alt.Scale(domainMin=data.iloc[data.index[-30]]['timestamp'] )),
+            # x=alt.X("timestamp:T", scale=alt.Scale(domain=[data.iloc[data.index[-30]]['timestamp'], data.iloc[data.index[-3]]['timestamp']])),
             y=alt.Y("average", scale=alt.Scale(zero=False)),
         )
     )
@@ -40,7 +42,8 @@ def get_chart(data, title):
         )
         .add_selection(hover)
     )
-    return (lines + points + tooltips).interactive()
+    chart = (lines + points + tooltips).interactive()
+    return chart
 
 
 
