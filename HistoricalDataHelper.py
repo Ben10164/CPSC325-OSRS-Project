@@ -53,7 +53,7 @@ def get_all_historical_API(delta):
     two_yrs_ago = datetime.now() - relativedelta(years=2)
     while (t > two_yrs_ago.timestamp()):
         time_df = get_prices_at_time(delta, t)
-        print(t)
+
         label = 0
         if (delta == '5m'):
             label = str(int(t - (t % 300)))
@@ -105,8 +105,6 @@ def create_complete_historical(delta):
         # historical_time = get_historical_API('6h', id, datetime.now().timestamp() - (21600*365))
         if delta == '1h':
             historical_time = get_all_historical_API(delta)
-        elif delta == '5m':
-            historical_time = get_all_historical_API(delta)
         else:
             historical_time = get_all_historical_API(delta)
         for idx in range(len(historical_time)):
@@ -139,7 +137,7 @@ def get_historical_local(name, delta) -> pd.DataFrame:
         fpath = 'Data/Historical/Complete-' + str(delta) + '-' + str(i) + '.json'
         try:
             df = pd.read_json(fpath)
-            item = item.concat(df.loc[id])
+            item = pd.concat([item, df.loc[id]])
         except:
             pass
     # save the indexes
@@ -147,6 +145,7 @@ def get_historical_local(name, delta) -> pd.DataFrame:
     temp = item.index
     df = pd.DataFrame(item.to_list())
     df = df.set_index(temp)
+    df = df.sort_index()
     return df
     
 
@@ -196,13 +195,9 @@ def get_historical_API(delta, id, start_time=None):
 
 def create_historical(name, delta):
     id = NameIDHelper.NameToID(name)
-    print("id is ", id)
     try:
-        # historical_time = get_historical_API('6h', id, datetime.now().timestamp() - (21600*365))
         if delta == '1h':
             historical_time = get_historical_API(delta, id, datetime.now().timestamp() - (3600*365))
-        elif delta == '5m':
-            historical_time = get_historical_API(delta, id, datetime.now().timestamp() - (300*365))
         else:
             historical_time = get_historical_API(delta, id, datetime.now().timestamp() - (21600*365))
 
@@ -218,9 +213,44 @@ def create_historical(name, delta):
         f.close()
     except:
         return IndexError()
+    
+
+def create_historical_local(name, delta):
+    id = NameIDHelper.NameToID(name)
+    print("id is ", id)
+    if os.path.exists('Data/Historical/' + str(id) + '-' + str(delta) + '.json'):
+        f = open('Data/Historical/' + str(id) + '-' + str(delta) + '.json', 'w')
+    else:
+
+        historical_time = get_historical_local(name, delta)
+        try:
+            os.mkdir('Data')
+        except:
+            try:
+                os.mkdir('Data/Historical')
+            except:
+                pass
+        f = open('Data/Historical/' + str(id) + '-' + str(delta) + '.json', 'w')
+        historical_time = historical_time.transpose()
+        historical_time.to_json('Data/Historical/' + str(id) + '-' + str(delta) + '.json', indent=4)
+    f.close()
 
 
-def get_historical(name, delta):
+def get_item_historical_local(name, delta):
+    id = NameIDHelper.NameToID(name)
+    fpath = 'Data/Historical/' + str(id) + '-' + str(delta) + '.json'
+    if(os.path.exists(fpath)):
+        try:
+            df = pd.read_json(fpath)
+        except:
+            create_historical_local(name, delta)
+            df = pd.read_json(fpath)
+    else:
+        create_historical_local(name, delta)
+        df = pd.read_json(fpath)
+    return df
+
+def get_item_historical(name, delta):
     id = NameIDHelper.NameToID(name)
     fpath = 'Data/Historical/' + str(id) + '-' + str(delta) + '.json'
     try:

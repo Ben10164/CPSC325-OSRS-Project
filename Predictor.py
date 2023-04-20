@@ -10,8 +10,8 @@ import DateTimeHelper
 import HistoricalDataHelper
 
 
-def get_model_with_df(MAX_EPOCHS=20000, 
-         PATIENCE=400, 
+def get_model_with_df(MAX_EPOCHS=200, 
+         PATIENCE=10, 
          normalize=False, 
          ITEM="Twised bow", 
          INPUT_WIDTH=30, 
@@ -730,6 +730,28 @@ def get_model(MAX_EPOCHS=20000,
         return linear
 
 
+def get_data(item, delta, normalize=False):
+    df = DateTimeHelper.getDT(item, delta)
+
+    # import the Historical data
+    test = HistoricalDataHelper.get_item_historical_local(item, delta)
+    # test = HistoricalDataHelper.get_historical(ITEM, DELTA)
+    if not test.empty:
+        test = test.transpose()
+        test = test[['avgHighPrice', 'avgLowPrice',
+                    'highPriceVolume', 'lowPriceVolume']]
+        test = DateTimeHelper.addAverage(test)
+        test.index.name = "timestamp"
+        # now we append the historical data to the curr data
+        # df = df.append(test)
+        df = pd.concat([df, test])
+
+    df = df.reset_index()
+    df['timestamp'] = pd.to_datetime(df['timestamp'])
+    df = df.set_index('timestamp')
+    df = df.sort_index()
+    return df
+
 
 def predict(model : tf.keras.Sequential, test_df):
     """Returns a prediction
@@ -741,9 +763,7 @@ def predict(model : tf.keras.Sequential, test_df):
     t = test_df.to_numpy()
     t_reshaped = t.reshape((1,-1,5)) 
 
-    y_pred = model.predict(t_reshaped )
+    y_pred = model(t_reshaped )
+    # y_pred = model.predict(t_reshaped )
 
-    # p = pd.DataFrame(y_pred[0])
-    p =y_pred[0]
-
-    return p
+    return y_pred[0]

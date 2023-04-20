@@ -3,14 +3,15 @@ import pandas as pd
 
 import DateTimeHelper
 
-ITEM="Scythe of vitur (uncharged)"
+ITEM="Twisted bow"
+# ITEM="Scythe of vitur (uncharged)"
 
 test_df = DateTimeHelper.getDT(ITEM, '1h')[-30:]
 
 # test_df = pd.read_json('temp.json')
 
-model = Predictor.get_model(MAX_EPOCHS=200,
-                            PATIENCE=400,
+model = Predictor.get_model(MAX_EPOCHS=2000,
+                            PATIENCE=50,
                             normalize=False,
                             ITEM=ITEM,
                             # ITEM="Twisted bow",
@@ -20,9 +21,10 @@ model = Predictor.get_model(MAX_EPOCHS=200,
                             CONV_WIDTH=30,
                             LABEL_COLUMNS=['average',
                                            'avgHighPrice', 'avgLowPrice'],
-                            #    MODEL="Linear",
-                            MODEL="Conv1D",
-                            DELTA='6h')
+                            # MODEL="Linear",
+                            # MODEL="Conv1D",
+                            MODEL="Multi_Step_Dense",
+                            DELTA='1h')
 
 te = Predictor.predict(model, test_df)
 print(te)
