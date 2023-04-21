@@ -399,7 +399,7 @@ def get_model(MAX_EPOCHS=20000,
         print(df)
 
         # import the Historical data
-        test = HistoricalDataHelper.get_item_historical_local('Twisted bow', DELTA)
+        test = HistoricalDataHelper.get_item_historical_local(ITEM, DELTA)
         print(test)
         # test = HistoricalDataHelper.get_historical(ITEM, DELTA)
 
@@ -412,7 +412,6 @@ def get_model(MAX_EPOCHS=20000,
             # now we append the historical data to the curr data
             # df = df.append(test)
             df = pd.concat([df, test])
-            df
 
         df2 = df.copy()
 
@@ -436,6 +435,8 @@ def get_model(MAX_EPOCHS=20000,
         val_df = df[int(n*0.7):int(n*0.9)]
         test_df = df[int(n*0.9):]
         og_test_df = df2[int(n*0.9):]
+
+        print(df.index.size)
 
         num_features = df.shape[1]
 
@@ -685,10 +686,10 @@ def get_model(MAX_EPOCHS=20000,
             conv_model = tf.keras.Sequential([
                 tf.keras.layers.Conv1D(filters=32,
                                     kernel_size=(CONV_WIDTH,),
-                                    activation='relu',
+                                    # activation='relu',
                                     input_shape=(None, 5)),
-                tf.keras.layers.Dense(units=32, activation='relu'),
-                tf.keras.layers.Dense(units=1),
+                # tf.keras.layers.Dense(units=32, activation='relu'),
+                # tf.keras.layers.Dense(units=32),
             ])
             try:
                 conv_model = tf.keras.models.load_model(

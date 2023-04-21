@@ -4,7 +4,45 @@ import altair as alt
 # Define the base time-series chart.
 
 
-def get_chart(data, title):
+def get_chart(data, title, y_pred = None):
+
+    if y_pred is not None:
+        delta = data['timestamp'].iloc[-1] - data['timestamp'].iloc[-2]
+        print(delta)
+        deltaStuff = []
+
+        start = data['timestamp'].iloc[-1]
+        end = start + (delta * y_pred.size)
+
+        import pandas as pd
+
+        pred = []
+        temp = start
+        for val in y_pred:
+            pred.append({
+                'timestamp': temp + delta,
+                'average' : val
+            })
+            temp = temp + delta
+
+        pred_df = pd.DataFrame(pred)
+        st.write(pred_df)
+
+
+        lines2 = (
+            alt.Chart(pred_df, title=title)
+            .mark_line()
+            .encode(
+                x=alt.X("timestamp:T"),
+                y=alt.Y("average"),
+                color=alt.value('red')
+            )
+        )
+
+        data = data.append(pred_df)
+        st.write(data)
+        data = data.reset_index()
+
     hover = alt.selection_single(
         fields=["timestamp"],
         nearest=True,
@@ -42,8 +80,16 @@ def get_chart(data, title):
         )
         .add_selection(hover)
     )
-    chart = (lines + points + tooltips).interactive()
+
+    if y_pred is not None:
+        chart = (lines + points + tooltips + lines2).interactive()
+        print("YAYYYYYY")
+    else:
+        chart = (lines + points + tooltips).interactive()
+        print("POOOOO")
     return chart
+
+
 
 
 
@@ -114,6 +160,6 @@ def get_sam_altair_chart(data, title):
     chart = get_sam_chart(data.reset_index(), title)
     st.altair_chart(chart.interactive(),use_container_width=True)
 
-def get_altair_chart(data, title):
-    chart = get_chart(data, title)
+def get_altair_chart(data, title, y_pred=None):
+    chart = get_chart(data, title, y_pred)
     st.altair_chart(chart.interactive(),use_container_width=True)

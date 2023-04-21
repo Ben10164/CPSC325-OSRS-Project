@@ -3,23 +3,150 @@ import pandas as pd
 
 import DateTimeHelper
 
+MAX_EPOCHS=1000
+PATIENCE = MAX_EPOCHS/10
+MODEL = "Conv1D"
+
+
 # ITEM="Tumeken's shadow (uncharged)"
 # ITEM="Scythe of vitur (uncharged)"
 ITEM="Twisted bow"
 
-DELTA = '6h'
-# DELTA = '1h'
+DELTA = '1h'
+# DELTA = '6h'
 
-test_df = DateTimeHelper.getDT(ITEM, '1h')[-30:]
+
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
 
 # test_df = pd.read_json('temp.json')
 
 
-model = Predictor.get_model(MAX_EPOCHS=100,
-                            PATIENCE=10,
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
                             ITEM=ITEM,
-                            MODEL="Conv1D",
+                            MODEL=MODEL,
                             DELTA=DELTA)
+
+
+te = Predictor.predict(model, test_df)
+print(te)
+
+#------#
+
+# ITEM="Tumeken's shadow (uncharged)"
+# ITEM="Scythe of vitur (uncharged)"
+ITEM="Twisted bow"
+
+# DELTA = '1h'
+DELTA = '6h'
+
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+
+# test_df = pd.read_json('temp.json')
+
+
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+
+
+te = Predictor.predict(model, test_df)
+print(te)
+
+#------#
+
+# ITEM="Tumeken's shadow (uncharged)"
+ITEM="Scythe of vitur (uncharged)"
+# ITEM="Twisted bow"
+
+DELTA = '1h'
+# DELTA = '6h'
+
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+
+# test_df = pd.read_json('temp.json')
+
+
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+
+
+te = Predictor.predict(model, test_df)
+print(te)
+
+#------#
+
+# ITEM="Tumeken's shadow (uncharged)"
+ITEM="Scythe of vitur (uncharged)"
+# ITEM="Twisted bow"
+
+# DELTA = '1h'
+DELTA = '6h'
+
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+
+# test_df = pd.read_json('temp.json')
+
+
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+
+
+te = Predictor.predict(model, test_df)
+print(te)
+
+#------#
+
+ITEM="Tumeken's shadow (uncharged)"
+# ITEM="Scythe of vitur (uncharged)"
+# ITEM="Twisted bow"
+
+# DELTA = '1h'
+DELTA = '6h'
+
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+
+# test_df = pd.read_json('temp.json')
+
+
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+
+
+te = Predictor.predict(model, test_df)
+print(te)
+
+#------#
+
+ITEM="Tumeken's shadow (uncharged)"
+# ITEM="Scythe of vitur (uncharged)"
+# ITEM="Twisted bow"
+
+DELTA = '1h'
+# DELTA = '6h'
+
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+
+# test_df = pd.read_json('temp.json')
+
+
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+
 
 te = Predictor.predict(model, test_df)
 print(te)
@@ -29,7 +156,7 @@ print(te)
 
 
 
-# model = Predictor.get_model(MAX_EPOCHS=100,
+# model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS0,
 #                             PATIENCE=10,
 #                             normalize=False,
 #                             # normalize=True,
@@ -42,7 +169,7 @@ print(te)
 #                             LABEL_COLUMNS=['average',
 #                                            'avgHighPrice', 'avgLowPrice'],
 #                             # MODEL="Linear",
-#                             MODEL="Conv1D",
+#                             MODEL=MODEL,
 #                             # MODEL="Multi_Step_Dense",
 #                             DELTA='6h')
 
