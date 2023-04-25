@@ -12,6 +12,6 @@ dependencies:
 
   ## PyPI packages
   - pip:
-      - tensorflow
+      # - tensorflow
       - skforecast
       - streamlit
