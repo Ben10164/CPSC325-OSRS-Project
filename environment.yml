@@ -16,4 +16,4 @@ dependencies:
   # - tensorflow
   - skforecast
   - streamlit
-  - streamlib
+  # - streamlib
