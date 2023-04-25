@@ -9,6 +9,7 @@ dependencies:
 - matplotlib
 - scikit-learn
 - altair
+- tensorflow
 
 ## PyPI packages
 - pip:
