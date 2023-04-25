@@ -1,7 +1,5 @@
 pandas
 matplotlib
-scikit-learn
 altair
-tensorflow
-skforecast
 streamlit
+tensorflow
