@@ -686,8 +686,10 @@ def get_model(MAX_EPOCHS=20000,
             conv_model = tf.keras.Sequential([
                 tf.keras.layers.Conv1D(filters=32,
                                     kernel_size=(CONV_WIDTH,),
+                                    activation='relu',
                                     # activation='relu',
                                     input_shape=(None, 5)),
+                tf.keras.layers.Dense(units=32, activation='relu'),
                 # tf.keras.layers.Dense(units=32, activation='relu'),
                 # tf.keras.layers.Dense(units=32),
             ])

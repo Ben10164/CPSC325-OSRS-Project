@@ -259,3 +259,79 @@ def get_item_historical(name, delta):
         create_historical(name, delta)
         df = pd.read_json(fpath)
     return df
+
+
+def update_historical(delta):
+    fpath = 'Data/Historical/Complete-' + str(delta) + '-0.json'
+    try:
+        df = pd.read_json(fpath)
+    except:
+        create_complete_historical(delta)
+        df = pd.read_json(fpath)
+
+    item = df.transpose()
+    for i in range(1, 10):
+        # try looking for the others as well
+        fpath = 'Data/Historical/Complete-' + str(delta) + '-' + str(i) + '.json'
+        try:
+            df = pd.read_json(fpath)
+            item = pd.concat([item, df.transpose()])
+        except:
+            pass
+    # save the indexes
+    df = pd.DataFrame(item)
+    # item = item.dropna()
+    df = df.sort_index()
+
+    # now df is the entire local historical
+    last_item = df.index[-1]
+
+    # now we can get the latest one the instant api gets
+    import DateTimeHelper
+    l = DateTimeHelper.getDT("Twisted bow", delta)
+    t = datetime.strptime(l.index[0],'%Y-%m-%d %H:%M:%S' ).timestamp()
+
+    new = []
+
+    while (t > last_item.timestamp()):
+        time_df = get_prices_at_time(delta, t)
+
+        label = 0
+        if (delta == '5m'):
+            label = str(int(t - (t % 300)))
+        elif (delta == '1h'):
+            label = str(int(t - (t % 3600)))
+        elif (delta == '6h'):
+            label = str(int(t - (t % 21600)))
+        # times[label] = df_json
+        if (delta == '6h'):
+            t = t-(21600)
+        elif (delta == '1h'):
+            t = t-3600
+        elif (delta == '5m'):
+            t = t-300
+        else:
+            ValueError()
+
+        new.append(time_df)
+    
+    df = pd.concat([df, pd.DataFrame(new)])
+    df = df.sort_index()
+
+    times = [{},{},{},{},{},{},{},{},{},{}]
+
+    for i in range(df.index.size):
+        times[i%10][df.index[i].timestamp()] = df.loc[df.index[i]].to_json()
+
+    for idx in range(len(times)):
+        try:
+            f = open('Data/Historical/Complete-' + str(delta) + '-' + str(idx) + '.json', 'w')
+        except:
+            try:
+                os.mkdir('Data')
+            except:
+                os.mkdir('Data/Historical')
+            f = open('Data/Historical/Complete-' + str(delta) + '-' + str(idx) +'-' + '.json', 'w')
+        f.write(json.dumps(times[idx], indent=4))
+        f.close()
+    return df

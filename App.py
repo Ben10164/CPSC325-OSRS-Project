@@ -2,9 +2,9 @@ import streamlit as st
 
 import DateTimeHelper
 import ChartHelper
-import Ideas.PredictorTest as PredictorTest
 import Predictor
 import pandas as pd
+import tensorflow as tf
 
 def convert_tf_to_pd(ds, limit=32):
     """

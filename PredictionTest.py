@@ -3,8 +3,8 @@ import pandas as pd
 
 import DateTimeHelper
 
-MAX_EPOCHS=1000
-PATIENCE = MAX_EPOCHS/10
+MAX_EPOCHS=20
+PATIENCE = MAX_EPOCHS/5
 MODEL = "Conv1D"
 
 

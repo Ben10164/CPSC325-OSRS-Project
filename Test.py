@@ -10,5 +10,5 @@ import Predictor
 # HistoricalDataHelper.create_complete_historical('6h')
 # temp = HistoricalDataHelper.get_historical_local('Twisted bow', '6h')
 
-data = Predictor.get_data('Twisted bow', '1h')
-print(data)
+u = HistoricalDataHelper.update_historical('6h')
+print(u)

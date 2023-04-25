@@ -26,6 +26,7 @@ def get_chart(data, title, y_pred = None):
             temp = temp + delta
 
         pred_df = pd.DataFrame(pred)
+        st.write("### The predicted data!")
         st.write(pred_df)
 
 
@@ -40,7 +41,7 @@ def get_chart(data, title, y_pred = None):
         )
 
         data = data.append(pred_df)
-        st.write(data)
+        # st.write(data)
         data = data.reset_index()
 
     hover = alt.selection_single(
