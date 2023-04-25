@@ -26,7 +26,7 @@ def convert_tf_to_pd(ds, limit=32):
 
 
 name = st.selectbox('Chose the Mega-Rare BIS item to view trading info for', ['Twisted bow' , 'Scythe of vitur (uncharged)', 'Tumeken\'s shadow (uncharged)'], label_visibility="visible")
-prediction_delta = st.selectbox('Model to use (6h has further predictions)', ['1h' , '6h'])
+prediction_delta = st.selectbox('Delta used in Model and Data Display', ['1h' , '6h'])
 
   ## Range selector
 historical = st.checkbox("Include historical values in the graph? (Performance decrease when start date is further from the present)", value=False)
@@ -47,20 +47,31 @@ if len(name) != 0:
         start_date = data.index[-1]
         end_date = data.index[-365]
 
-
     slider = cols1.slider('Select the start date of the graph', max_value=start_date.to_pydatetime(), value=end_date.to_pydatetime() ,min_value=end_date.to_pydatetime(), format=format)
 
     # len = st.slider(label="# of datapoints (Large values cause performance issues)",max_value=data.index[-1], format='dddd, MMMM Do YYYY, h:mm:ss a', key=data.index)
     # len = st.slider(label="# of datapoints (Large values cause performance issues)")
+    """
+    # Current Data
+    """
     ChartHelper.get_altair_chart(data.loc[pd.to_datetime(slider):].reset_index(),name)
 
+    MODEL = st.selectbox('Chose the Model to predict with', [None, 'Conv1D' , 'Linear', 'Multi_Step_Dense'], label_visibility="visible")
+    """
+    Note:  
+    Conv1D is the only model that predicts more than 1 step in the future. If you would like to use a Linear or Multi_Step_Dense model to predict, the value of Delta is how far in the future it will predict.
+    """
+    if(MODEL is not None):
+        model = Predictor.get_model(ITEM=name, DELTA=prediction_delta, MODEL=MODEL)
+        test_df = DateTimeHelper.getDT(name, prediction_delta)[-30:]
+        te = Predictor.predict(model, test_df)
+        # st.write(te)
 
-    model = Predictor.get_model(ITEM=name, DELTA=prediction_delta)
-    test_df = DateTimeHelper.getDT(name, prediction_delta)[-30:]
-    te = Predictor.predict(model, test_df)
-    # st.write(te)
 
-    ChartHelper.get_altair_chart(data.loc[pd.to_datetime(slider):].reset_index(),name, te.numpy()[0][0])
+        """
+        # Predicted Data
+        """
+        ChartHelper.get_altair_chart(data.loc[pd.to_datetime(slider):].reset_index(),name, te.numpy()[0][0])
 
 
     # ChartHelper.get_sam_altair_chart(PredictorTest.getNeatGraph(name, time),name)

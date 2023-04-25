@@ -3,120 +3,54 @@ import pandas as pd
 
 import DateTimeHelper
 
-MAX_EPOCHS=20
+MAX_EPOCHS=2000
 PATIENCE = MAX_EPOCHS/5
+
+
+
+
 MODEL = "Conv1D"
-
-
-# ITEM="Tumeken's shadow (uncharged)"
-# ITEM="Scythe of vitur (uncharged)"
 ITEM="Twisted bow"
-
 DELTA = '1h'
-# DELTA = '6h'
-
-
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-
-# test_df = pd.read_json('temp.json')
-
-
 model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
                             PATIENCE=PATIENCE,
                             ITEM=ITEM,
                             MODEL=MODEL,
                             DELTA=DELTA)
-
-
-te = Predictor.predict(model, test_df)
-print(te)
-
-#------#
-
-# ITEM="Tumeken's shadow (uncharged)"
-# ITEM="Scythe of vitur (uncharged)"
-ITEM="Twisted bow"
-
-# DELTA = '1h'
 DELTA = '6h'
-
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-
-# test_df = pd.read_json('temp.json')
-
-
 model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
                             PATIENCE=PATIENCE,
                             ITEM=ITEM,
                             MODEL=MODEL,
                             DELTA=DELTA)
-
-
-te = Predictor.predict(model, test_df)
-print(te)
-
-#------#
-
-# ITEM="Tumeken's shadow (uncharged)"
 ITEM="Scythe of vitur (uncharged)"
-# ITEM="Twisted bow"
-
 DELTA = '1h'
-# DELTA = '6h'
-
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-
-# test_df = pd.read_json('temp.json')
-
-
 model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
                             PATIENCE=PATIENCE,
                             ITEM=ITEM,
                             MODEL=MODEL,
                             DELTA=DELTA)
-
-
-te = Predictor.predict(model, test_df)
-print(te)
-
-#------#
-
-# ITEM="Tumeken's shadow (uncharged)"
-ITEM="Scythe of vitur (uncharged)"
-# ITEM="Twisted bow"
-
-# DELTA = '1h'
 DELTA = '6h'
-
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-
-# test_df = pd.read_json('temp.json')
-
-
 model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
                             PATIENCE=PATIENCE,
                             ITEM=ITEM,
                             MODEL=MODEL,
                             DELTA=DELTA)
-
-
-te = Predictor.predict(model, test_df)
-print(te)
-
-#------#
 
 ITEM="Tumeken's shadow (uncharged)"
-# ITEM="Scythe of vitur (uncharged)"
-# ITEM="Twisted bow"
-
-# DELTA = '1h'
-DELTA = '6h'
-
+DELTA = '1h'
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-
-# test_df = pd.read_json('temp.json')
-
-
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+DELTA = '6h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
 model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
                             PATIENCE=PATIENCE,
                             ITEM=ITEM,
@@ -124,23 +58,51 @@ model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
                             DELTA=DELTA)
 
 
-te = Predictor.predict(model, test_df)
-print(te)
 
-#------#
+
+MODEL = "Linear"
+
+ITEM="Twisted bow"
+DELTA = '1h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+DELTA = '6h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+ITEM="Scythe of vitur (uncharged)"
+DELTA = '1h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+DELTA = '6h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
 
 ITEM="Tumeken's shadow (uncharged)"
-# ITEM="Scythe of vitur (uncharged)"
-# ITEM="Twisted bow"
-
 DELTA = '1h'
-# DELTA = '6h'
-
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-
-# test_df = pd.read_json('temp.json')
-
-
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+DELTA = '6h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
 model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
                             PATIENCE=PATIENCE,
                             ITEM=ITEM,
@@ -148,12 +110,57 @@ model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
                             DELTA=DELTA)
 
 
-te = Predictor.predict(model, test_df)
-print(te)
 
 
 
+MODEL = "Multi_Step_Dense"
 
+ITEM="Twisted bow"
+DELTA = '1h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+DELTA = '6h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+ITEM="Scythe of vitur (uncharged)"
+DELTA = '1h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+DELTA = '6h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+
+ITEM="Tumeken's shadow (uncharged)"
+DELTA = '1h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
+DELTA = '6h'
+test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
+model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
+                            PATIENCE=PATIENCE,
+                            ITEM=ITEM,
+                            MODEL=MODEL,
+                            DELTA=DELTA)
 
 
 # model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS0,

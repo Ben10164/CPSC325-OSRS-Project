@@ -26,8 +26,6 @@ def get_chart(data, title, y_pred = None):
             temp = temp + delta
 
         pred_df = pd.DataFrame(pred)
-        st.write("### The predicted data!")
-        st.write(pred_df)
 
 
         lines2 = (
@@ -85,10 +83,12 @@ def get_chart(data, title, y_pred = None):
     if y_pred is not None:
         chart = (lines + points + tooltips + lines2).interactive()
         print("YAYYYYYY")
+        hm = pred_df
     else:
         chart = (lines + points + tooltips).interactive()
         print("POOOOO")
-    return chart
+        hm = None
+    return chart, hm
 
 
 
@@ -162,5 +162,13 @@ def get_sam_altair_chart(data, title):
     st.altair_chart(chart.interactive(),use_container_width=True)
 
 def get_altair_chart(data, title, y_pred=None):
-    chart = get_chart(data, title, y_pred)
-    st.altair_chart(chart.interactive(),use_container_width=True)
+    chart, pred_df = get_chart(data, title, y_pred)
+    if pred_df is not None:
+        if len(pred_df) >1:
+            st.altair_chart(chart.interactive(),use_container_width=True)
+        st.write("## Predicted Data as a table")
+        st.write(pred_df.set_index('timestamp'), )
+        st.write("Current price is: " + str(data.iloc[-1]['average']))
+    else:
+        st.altair_chart(chart.interactive(),use_container_width=True)
+
