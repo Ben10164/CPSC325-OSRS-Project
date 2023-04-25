@@ -12,7 +12,6 @@ import pandas as pd
 import datetime
 import pandas as pd
 import numpy as np
-from finta import TA
 import matplotlib.pyplot as plt
 
 from sklearn.ensemble import RandomForestClassifier

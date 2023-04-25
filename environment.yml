@@ -1,17 +1,17 @@
 name: tf-metal
 channels:
-  - conda-forge
+- defaults
+- conda-forge
 dependencies:
-  - python=3.9 ## specify desired version
-  - pip
-  - pandas
-  - matplotlib
-  - scikit-learn
-  - altair
-  - finta
+- python=3.9 ## specify desired version
+- pip
+- pandas
+- matplotlib
+- scikit-learn
+- altair
 
-  ## PyPI packages
-  - pip:
-      # - tensorflow
-      - skforecast
-      - streamlit
+## PyPI packages
+- pip:
+  # - tensorflow
+  - skforecast
+  - streamlit
