@@ -97,6 +97,7 @@ You can see that [App.py](App.py) has been updated a lot
 As the grand finale of this Progress Log, I will go through all the lines explaining them
 
 First I just import everything I need
+
 ```py
 import streamlit as st
 
@@ -159,3 +160,7 @@ if len(name) != 0: # if the name has been selected
 
         ChartHelper.get_altair_chart(data.loc[pd.to_datetime(slider):].reset_index(),name, te.numpy()[0][0])
 ```
+
+## Deploying
+
+Deploying with streamlit was very VERY easy. It uses the git repo to get the code, and containerizes it on their servers, allowing for constant pulling of new data whenever a request is made.

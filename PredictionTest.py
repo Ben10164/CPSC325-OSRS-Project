@@ -3,8 +3,8 @@ import pandas as pd
 
 import DateTimeHelper
 
-MAX_EPOCHS=2000
-PATIENCE = MAX_EPOCHS/5
+MAX_EPOCHS=1000
+PATIENCE = MAX_EPOCHS/10
 
 
 
