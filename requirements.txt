@@ -1,0 +1,8 @@
+python==3.9 ## specify desired version
+pandas
+matplotlib
+scikit-learn
+altair
+tensorflow
+skforecast
+streamlit
