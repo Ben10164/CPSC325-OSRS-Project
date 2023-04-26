@@ -686,10 +686,9 @@ def get_model(MAX_EPOCHS=20000,
             conv_model = tf.keras.Sequential([
                 tf.keras.layers.Conv1D(filters=32,
                                     kernel_size=(CONV_WIDTH,),
-                                    activation='relu',
                                     # activation='relu',
                                     input_shape=(None, 5)),
-                tf.keras.layers.Dense(units=32, activation='relu'),
+                # tf.keras.layers.Dense(units=32, activation='relu'),
                 # tf.keras.layers.Dense(units=32, activation='relu'),
                 # tf.keras.layers.Dense(units=32),
             ])
@@ -697,7 +696,6 @@ def get_model(MAX_EPOCHS=20000,
                 conv_model = tf.keras.models.load_model(
                     model_location + '/Conv_model-' + str(DELTA))
             except:
-                #### HEERHERHEHREHRJHSDKJLFHJSDHFJLHSDFJKHSKJDFHKJSHDF
                 # history = compile_and_fit(conv_model, conv_window)
                 history = compile_and_fit(conv_model, conv_window)
             conv_model.save(model_location + '/Conv_model-'+str(DELTA))
