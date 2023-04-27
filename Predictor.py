@@ -49,11 +49,9 @@ def get_model_with_df(MAX_EPOCHS=200,
     mpl.rcParams['figure.figsize'] = (8, 6)
     mpl.rcParams['axes.grid'] = False
     df = DateTimeHelper.getDT(ITEM, DELTA)
-    print(df)
 
     # import the Historical data
     test = HistoricalDataHelper.get_historical_local('Twisted bow', DELTA)
-    print(test)
     # test = HistoricalDataHelper.get_historical(ITEM, DELTA)
 
     if not test.empty:
@@ -396,11 +394,9 @@ def get_model(MAX_EPOCHS=20000,
         mpl.rcParams['figure.figsize'] = (8, 6)
         mpl.rcParams['axes.grid'] = False
         df = DateTimeHelper.getDT(ITEM, DELTA)
-        print(df)
 
         # import the Historical data
         test = HistoricalDataHelper.get_item_historical_local(ITEM, DELTA)
-        print(test)
         # test = HistoricalDataHelper.get_historical(ITEM, DELTA)
 
         if not test.empty:
@@ -435,8 +431,6 @@ def get_model(MAX_EPOCHS=20000,
         val_df = df[int(n*0.7):int(n*0.9)]
         test_df = df[int(n*0.9):]
         og_test_df = df2[int(n*0.9):]
-
-        print(df.index.size)
 
         num_features = df.shape[1]
 
