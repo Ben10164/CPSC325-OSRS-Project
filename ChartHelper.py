@@ -8,7 +8,6 @@ def get_chart(data, title, y_pred = None):
 
     if y_pred is not None:
         delta = data['timestamp'].iloc[-1] - data['timestamp'].iloc[-2]
-        print(delta)
         deltaStuff = []
 
         start = data['timestamp'].iloc[-1]
@@ -82,11 +81,9 @@ def get_chart(data, title, y_pred = None):
 
     if y_pred is not None:
         chart = (lines + points + tooltips + lines2).interactive()
-        print("YAYYYYYY")
         hm = pred_df
     else:
         chart = (lines + points + tooltips).interactive()
-        print("POOOOO")
         hm = None
     return chart, hm
 
