@@ -6,6 +6,12 @@ import Predictor
 import pandas as pd
 import tensorflow as tf
 
+st.set_page_config(
+    page_title="Hello",
+    page_icon="👋",
+    initial_sidebar_state="collapsed"
+)
+
 def convert_tf_to_pd(ds, limit=32):
     """
     Read data from Tensorflow dataset to Pandas dataframe
@@ -42,9 +48,9 @@ if len(name) != 0:
     format = 'MMM DD, YYYY'  # format output
     if(historical):
         start_date = data.index[-366]
-        end_date = data.index[1]   
+        end_date = data.index[2]   
     else:
-        start_date = data.index[-1]
+        start_date = data.index[-2]
         end_date = data.index[-365]
 
     slider = cols1.slider('Select the start date of the graph', max_value=start_date.to_pydatetime(), value=end_date.to_pydatetime() ,min_value=end_date.to_pydatetime(), format=format)

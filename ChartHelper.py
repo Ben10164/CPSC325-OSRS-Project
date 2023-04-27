@@ -161,14 +161,19 @@ def get_sam_altair_chart(data, title):
     chart = get_sam_chart(data.reset_index(), title)
     st.altair_chart(chart.interactive(),use_container_width=True)
 
-def get_altair_chart(data, title, y_pred=None):
+def get_altair_chart(data, title, y_pred=None, table=True):
     chart, pred_df = get_chart(data, title, y_pred)
     if pred_df is not None:
         if len(pred_df) >1:
             st.altair_chart(chart.interactive(),use_container_width=True)
-        st.write("## Predicted Data as a table")
-        st.write(pred_df.set_index('timestamp'), )
-        st.write("Current price is: " + str(data.iloc[-1]['average']))
+        if table:
+            st.write("## Predicted Data as a table")
+            st.write(pred_df.set_index('timestamp'), )
+            st.write("Current price is: " + str(data.iloc[-1]['average']))
     else:
         st.altair_chart(chart.interactive(),use_container_width=True)
+
+def get_dashboard_chart(data, title, y_pred=None, table=True):
+    chart, pred_df = get_chart(data, title, y_pred)
+    return chart
 
