@@ -1,3 +1,7 @@
+# Project Log <!-- omit in toc -->
+
+This is the final Progress Log / Write-up for the project. Here is the [previous log](https://github.com/Ben10164/CPSC325-Research/blob/main/ProgressLog.md) for the Project Research.
+
 * [NameIDHelper](#nameidhelper)
 * [DateTimeHelper](#datetimehelper)
 * [ChartHelper](#charthelper)
@@ -7,10 +11,6 @@
 * [Integrating with Streamlit](#integrating-with-streamlit)
 * [Deploying](#deploying)
 * [Testing](#testing)
-
-# Project Log <!-- omit in toc -->
-
-This is the final Progress Log / Write-up for the project. Here is the [previous log](https://github.com/Ben10164/CPSC325-Research/blob/main/ProgressLog.md) for the Project Research.
 
 ## NameIDHelper
 
