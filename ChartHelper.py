@@ -87,10 +87,6 @@ def get_chart(data, title, y_pred = None):
         hm = None
     return chart, hm
 
-
-
-
-
 def get_sam_chart(data, title):
     hover = alt.selection_single(
         fields=["timestamp"],
