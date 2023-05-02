@@ -1,10 +1,18 @@
-# Project Log
+* [NameIDHelper](#nameidhelper)
+* [DateTimeHelper](#datetimehelper)
+* [ChartHelper](#charthelper)
+* [Ideas](#ideas)
+  * [skforecast](#skforecast)
+* [Tensorflow, the breakthrough](#tensorflow-the-breakthrough)
+* [Integrating with Streamlit](#integrating-with-streamlit)
+* [Deploying](#deploying)
+* [Testing](#testing)
+
+# Project Log <!-- omit in toc -->
 
 This is the final Progress Log / Write-up for the project. Here is the [previous log](https://github.com/Ben10164/CPSC325-Research/blob/main/ProgressLog.md) for the Project Research.
 
 ## NameIDHelper
-
-See [NameIDTest](1-NameIDTest.ipynb)
 
 First I want the program to import some modules
 
@@ -71,8 +79,6 @@ def UpdateJson():
 ```
 
 ## DateTimeHelper
-
-See [DateTimeTest](2-DateTimeTest.ipynb)
 
 Import everything needed
 
@@ -291,3 +297,11 @@ if len(name) != 0: # if the name has been selected
 ## Deploying
 
 Deploying with streamlit was very VERY easy. It uses the git repo to get the code, and containerizes it on their servers, allowing for constant pulling of new data whenever a request is made.
+
+## Testing
+
+See [NameIDTest](1-NameIDTest.ipynb)
+
+See [DateTimeTest](2-DateTimeTest.ipynb)
+
+I also did alot of manual testing for the graphs and Streamlit deployment.
