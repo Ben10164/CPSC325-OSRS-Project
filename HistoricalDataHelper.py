@@ -102,7 +102,6 @@ def get_all_historical_API(delta):
 
 def create_complete_historical(delta):
     try:
-        # historical_time = get_historical_API('6h', id, datetime.now().timestamp() - (21600*365))
         if delta == '1h':
             historical_time = get_all_historical_API(delta)
         else:
