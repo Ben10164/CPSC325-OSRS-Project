@@ -9,6 +9,12 @@ from dateutil.relativedelta import relativedelta
 
 import NameIDHelper
 
+# looking back at this code, this is like really bad and confusing
+#   im very sorry to people who are reading this.
+#   in general, 'local' means stuff that is stored in the repo (usually git ignored)
+# The idea is the local functions will just grab one massive heap of data,
+#   and then do logic based around that now locally stored data
+
 # 6h - 21600
 # 1h - 3600
 # 5m - 300

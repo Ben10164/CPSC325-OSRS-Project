@@ -3,6 +3,7 @@ Historical.zip
 .DS_Store
 Graphs/
 Data/Historical/Complete*.json
+.python-version
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
