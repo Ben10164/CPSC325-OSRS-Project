@@ -1,6 +1,6 @@
 # CPSC325-Project
 
-OldSchool Runescape Best-In-Slot item tracker: <https://ben10164.github.io/CPSC325-Project/>
+OldSchool Runescape Best-In-Slot item tracker: <https://ben10164.github.io/OSRS-GE-Tracker/>
 
 ## Project Proposal
 
