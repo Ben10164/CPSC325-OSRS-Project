@@ -3,164 +3,121 @@ import pandas as pd
 
 import DateTimeHelper
 
-MAX_EPOCHS=1000
-PATIENCE = MAX_EPOCHS/10
-
-
+MAX_EPOCHS = 1000
+PATIENCE = MAX_EPOCHS / 10
 
 
 MODEL = "Conv1D"
-ITEM="Twisted bow"
-DELTA = '1h'
+ITEM = "Twisted bow"
+DELTA = "1h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-DELTA = '6h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+DELTA = "6h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-ITEM="Scythe of vitur (uncharged)"
-DELTA = '1h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+ITEM = "Scythe of vitur (uncharged)"
+DELTA = "1h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-DELTA = '6h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+DELTA = "6h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
 
-ITEM="Tumeken's shadow (uncharged)"
-DELTA = '1h'
+ITEM = "Tumeken's shadow (uncharged)"
+DELTA = "1h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-DELTA = '6h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+DELTA = "6h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-
-
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
 
 
 MODEL = "Linear"
 
-ITEM="Twisted bow"
-DELTA = '1h'
+ITEM = "Twisted bow"
+DELTA = "1h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-DELTA = '6h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+DELTA = "6h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-ITEM="Scythe of vitur (uncharged)"
-DELTA = '1h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+ITEM = "Scythe of vitur (uncharged)"
+DELTA = "1h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-DELTA = '6h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+DELTA = "6h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
 
-ITEM="Tumeken's shadow (uncharged)"
-DELTA = '1h'
+ITEM = "Tumeken's shadow (uncharged)"
+DELTA = "1h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-DELTA = '6h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+DELTA = "6h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-
-
-
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
 
 
 MODEL = "Multi_Step_Dense"
 
-ITEM="Twisted bow"
-DELTA = '1h'
+ITEM = "Twisted bow"
+DELTA = "1h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-DELTA = '6h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+DELTA = "6h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-ITEM="Scythe of vitur (uncharged)"
-DELTA = '1h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+ITEM = "Scythe of vitur (uncharged)"
+DELTA = "1h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-DELTA = '6h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+DELTA = "6h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
 
-ITEM="Tumeken's shadow (uncharged)"
-DELTA = '1h'
+ITEM = "Tumeken's shadow (uncharged)"
+DELTA = "1h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
-DELTA = '6h'
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
+DELTA = "6h"
 test_df = DateTimeHelper.getDT(ITEM, DELTA)[-30:]
-model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS,
-                            PATIENCE=PATIENCE,
-                            ITEM=ITEM,
-                            MODEL=MODEL,
-                            DELTA=DELTA)
+model = Predictor.get_model(
+    MAX_EPOCHS=MAX_EPOCHS, PATIENCE=PATIENCE, ITEM=ITEM, MODEL=MODEL, DELTA=DELTA
+)
 
 
 # model = Predictor.get_model(MAX_EPOCHS=MAX_EPOCHS0,

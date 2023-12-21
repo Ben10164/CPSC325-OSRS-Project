@@ -11,7 +11,7 @@ import pandas as pd
 
 
 def hm(name, timestep):
-    url = 'https://prices.runescape.wiki/api/v1/osrs'
+    url = "https://prices.runescape.wiki/api/v1/osrs"
     # we want the latest data, so lets add that to the url
     url += "/timeseries?timestep="
     url += timestep
@@ -22,7 +22,7 @@ def hm(name, timestep):
     headers = {
         # the wiki blocks all common user-agents in order to prevent spam
         # after talking with some of the API maintainers over discord they asked me to include my discord in the user-agent
-        'User-Agent': 'Accessing Past 365 6h times - @Be#9998',
+        "User-Agent": "Accessing Past 365 6h times - @Be#9998",
     }
     req = Request(url, headers=headers)
 
@@ -30,13 +30,14 @@ def hm(name, timestep):
         latestData = response.read()
     data = json.loads(latestData)
 
-    for date in data['data']:
-        date['timestamp'] = datetime.utcfromtimestamp(
-            date['timestamp']).strftime('%Y-%m-%d %H:%M:%S')
-    data = data['data']
+    for date in data["data"]:
+        date["timestamp"] = datetime.utcfromtimestamp(date["timestamp"]).strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
+    data = data["data"]
 
     dt_pandas = pd.DataFrame(data)
-    dt_pandas = dt_pandas.set_index('timestamp')
+    dt_pandas = dt_pandas.set_index("timestamp")
 
 
 tmp = hm("Twisted bow", "6h")
